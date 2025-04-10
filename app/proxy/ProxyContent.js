@@ -7,23 +7,15 @@ export default function ProxyContent({ html, url }) {
   const contentRef = useRef(null);
   const router = useRouter();
 
+  // Fallback client-side interception for clicks.
   useEffect(() => {
     const handleLinkClick = (e) => {
-      // Find the closest anchor element
       const anchor = e.target.closest("a");
       if (anchor) {
         e.preventDefault();
-        let href = anchor.getAttribute("href");
-
-        // Ignore empty, anchor-only, or javascript links
-        if (!href || href.startsWith("javascript:") || href === "#") return;
-
-        try {
-          // Resolve relative URLs to absolute URLs based on the target URL
-          const absoluteUrl = new URL(href, url).href;
-          router.push(`/proxy?url=${encodeURIComponent(absoluteUrl)}`);
-        } catch (error) {
-          console.error("Error processing URL:", error);
+        const href = anchor.getAttribute("href");
+        if (href) {
+          router.push(href);
         }
       }
     };
@@ -37,7 +29,7 @@ export default function ProxyContent({ html, url }) {
         currentRef.removeEventListener("click", handleLinkClick);
       }
     };
-  }, [url, router]);
+  }, [router]);
 
   return (
     <div

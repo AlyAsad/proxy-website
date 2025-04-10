@@ -7,8 +7,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "next": "latest"
+    "cheerio": "^1.0.0-rc.12"
   }
 }

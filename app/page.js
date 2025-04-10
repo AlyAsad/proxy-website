@@ -10,7 +10,6 @@ export default function Home() {
   const handleSubmit = (e) => {
     e.preventDefault();
     let formattedUrl = url.trim();
-    // Add HTTP protocol if missing
     if (!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")) {
       formattedUrl = "http://" + formattedUrl;
     }
